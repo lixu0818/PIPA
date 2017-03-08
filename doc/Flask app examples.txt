@@ -1,0 +1,19 @@
+Flask app examples:
+
+Follow this:
+Flask+MySQL to PythonAnywhere
+https://scotch.io/tutorials/build-a-crud-web-app-with-python-and-flask-part-three
+
+
+Flask+MySQL local example:
+http://codehandbook.org/python-web-application-flask-mysql/
+
+
+Flask+PostGres to Heroku
+http://www.vertabelo.com/blog/technical-articles/web-app-development-with-flask-sqlalchemy-bootstrap-part-3
+
+
+Heroku:
+MySQL (ClearDB): 5 MB free; 1 GB $10/mon
+Postgres: 10k rows free; 10M rows $9/mon
+Redis 25MB ram free 
