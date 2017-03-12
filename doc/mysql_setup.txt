@@ -1,0 +1,22 @@
+(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ pip install flask-sqlalchemy mysql-python
+
+# to start:
+$mysqld_safe
+
+# to stop:
+Yanchengs-MacBook-Pro:~ yliu$ mysqladmin -u root -p shutdown
+Enter password: root
+
+# To run mysql query in file:
+mysql> source ~/mysqlfolder/hello_user.sql
+
+# login
+Yanchengs-MacBook-Pro:~ yliu$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+
+# to enable auto-complete (by tab):
+mysql> \#
+
+# 

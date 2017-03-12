@@ -1,0 +1,67 @@
+$ pip install virtualenv
+$ pip install virtualenvwrapper
+$ export WORKON_HOME=~/Envs (add to .bash_profile)
+
+try:
+$ source /usr/local/bin/virtualenvwrapper.sh
+if not working:
+Yanchengs-MacBook-Pro:/ yliu$ sudo find . -name virtualenvwrapper.sh
+find: ./dev/fd/3: Not a directory
+find: ./dev/fd/4: Not a directory
+./Users/yliu/anaconda2/bin/virtualenvwrapper.sh
+Yanchengs-MacBook-Pro:~ yliu$ source ./anaconda2/bin/virtualenvwrapper.sh (add to .bash_profile)
+
+try:
+$ mkvirtualenv my-venv
+if not working:
+# downgrade to python 2.7.9:
+Yanchengs-MacBook-Pro:~ yliu$ conda install python=2.7.9
+
+Yanchengs-MacBook-Pro:~ yliu$ mkvirtualenv my-venv
+New python executable in /Users/yliu/Envs/my-venv/bin/python
+Installing setuptools, pip, wheel...done.
+virtualenvwrapper.user_scripts creating /Users/yliu/Envs/my-venv/bin/predeactivate
+virtualenvwrapper.user_scripts creating /Users/yliu/Envs/my-venv/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /Users/yliu/Envs/my-venv/bin/preactivate
+virtualenvwrapper.user_scripts creating /Users/yliu/Envs/my-venv/bin/postactivate
+virtualenvwrapper.user_scripts creating /Users/yliu/Envs/my-venv/bin/get_env_details
+Error: deactivate must be sourced. Run 'source deactivate'
+instead of 'deactivate'.
+
+(my-venv) Yanchengs-MacBook-Pro:~ yliu$ source deactivate
+(my-venv) Yanchengs-MacBook-Pro:~ yliu$ mkvirtualenv my-venv
+New python executable in /Users/yliu/Envs/my-venv/bin/python
+Installing setuptools, pip, wheel...done.
+
+# to start an existing venv:
+$ workon my-venv
+
+(my-venv) Yanchengs-MacBook-Pro:my-project yliu$ mkdir my-project
+(my-venv) Yanchengs-MacBook-Pro:my-project yliu$ cd my-project
+
+(my-venv) Yanchengs-MacBook-Pro:my-project yliu$ pip install Flask
+
+(my-venv) Yanchengs-MacBook-Pro:my-project yliu$ pip freeze
+appdirs==1.4.3
+click==6.7
+Flask==0.12
+itsdangerous==0.24
+Jinja2==2.9.5
+MarkupSafe==1.0
+packaging==16.8
+pyparsing==2.2.0
+six==1.10.0
+Werkzeug==0.11.15
+
+(my-venv) Yanchengs-MacBook-Pro:my-project yliu$ pip freeze > requirements.txt
+
+
+# to run flask app:
+$ export FLASK_APP=run.py
+$ flask run
+
+# if you have set the app to start with config in __init__.py, export the FALSK_CONFIG env variable first like so:
+(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ export FLASK_CONFIG=development
+(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ export FLASK_APP=run.py
+(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ flask run 
+

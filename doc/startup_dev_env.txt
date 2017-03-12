@@ -1,0 +1,24 @@
+# After setting up mysql, venv, and a flask app, to start development:
+
+# 1. start mysql db server and log in:
+Yanchengs-MacBook-Pro:~ yliu$ mysqld_safe
+Yanchengs-MacBook-Pro:~ yliu$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+ 
+# you can now close the mysql terminal (ignore the warning)
+
+# 2. enter your venv and start the flask app:
+Yanchengs-MacBook-Pro:~ yliu$ workon my-venv
+Error: deactivate must be sourced. Run 'source deactivate'
+instead of 'deactivate'.
+
+(my-venv) Yanchengs-MacBook-Pro:~ yliu$ source deactivate
+(my-venv) Yanchengs-MacBook-Pro:~ yliu$ cd dream-team/
+(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ export FLASK_CONFIG=development
+(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ export FLASK_APP=run.py
+(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ flask run
+
+# you CANNOT close the app server terminal
+
