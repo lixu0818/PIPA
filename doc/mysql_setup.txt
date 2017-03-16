@@ -19,4 +19,15 @@ Your MySQL connection id is 2
 # to enable auto-complete (by tab):
 mysql> \#
 
-# 
+# Use the following commend to set up db for the PIPA project
+
+mysql> CREATE USER 'pipa_admin'@'localhost' IDENTIFIED BY 'pipa2017';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create database pipa_db;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> GRANT ALL PRIVILEGES ON pipa_db . * TO 'pipa_admin'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+
