@@ -1,5 +1,4 @@
-# PIPA
-PubMed Intelligent Personal Assistant
+# PIPA (PubMed Intelligent Personal Assistant)
 ----
 
 Scientific researchers spend a lot of time to read literatures coming out in the field. Keeping up with the relevant papers is very important for designing experiments and writing grant proposals. As the largest collection of biomedical literature, Pubmed (https://www.ncbi.nlm.nih.gov/ pubmed), comprises more than 26 million publications from life science journals and books. Although hundreds of millions of researchers depend heavily on Pubmed’s update, its service seems to be too basic and not very user-friendly. 
