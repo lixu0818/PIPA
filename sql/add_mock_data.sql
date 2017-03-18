@@ -23,7 +23,17 @@ curdate(),
 0.10003,
 0.10002,
 0.10001,
-0.10000);
+0.10000,
+'Effect of Rare-Earth Doping on Free-Volume Nanostructure of Ga-Codoped Glas', 
+'Structural Investigation of Uniform Ensembles of Self-Catalyzed GaAs Nanowi', 
+'Optimization of the Surface Structure on Black Silicon for Surface Passivat', 
+'Hepatotoxicity and Drug/Chemical Interaction Toxicity of Nanoclay Particles', 
+'Design of High Performance Si/SiGe Heterojunction Tunneling FETs with a T-S', 
+'Raman and Luminescent Spectra of Sulfonated Zn Phthalocyanine Enhanced by G', 
+'Effect of Ge Content on the Formation of Ge Nanoclusters in Magnetron-Sputt', 
+'Cyclic Martensitic Transformations Influence on the Diffusion Of Carbon Ato', 
+'A Novel Polar Copolymer Design as a Multi-Functional Binder for Strong Affi', 
+'Nanostructurization of Fe-Ni Alloy.'); 
 
 
 insert into recommend_articles
@@ -51,7 +61,17 @@ curdate() - interval 1 day,
 0.20003,
 0.20002,
 0.20001,
-0.20000);
+0.20000,
+'A Novel Polar Copolymer Design as a Multi-Functional Binder for Strong Affi', 
+'Effect of Ge Content on the Formation of Ge Nanoclusters in Magnetron-Sputt', 
+'Raman and Luminescent Spectra of Sulfonated Zn Phthalocyanine Enhanced by G', 
+'Structural Investigation of Uniform Ensembles of Self-Catalyzed GaAs Nanowi', 
+'Optimization of the Surface Structure on Black Silicon for Surface Passivat', 
+'Hepatotoxicity and Drug/Chemical Interaction Toxicity of Nanoclay Particles', 
+'Design of High Performance Si/SiGe Heterojunction Tunneling FETs with a T-S', 
+'Cyclic Martensitic Transformations Influence on the Diffusion Of Carbon Ato', 
+'Effect of Rare-Earth Doping on Free-Volume Nanostructure of Ga-Codoped Glas', 
+'Nanostructurization of Fe-Ni Alloy.'); 
 
 insert into user_articles values (1, -1, 'blood cancer cell experiment yeast test',curdate(), NULL,curdate());
 
