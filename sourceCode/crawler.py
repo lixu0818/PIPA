@@ -12,7 +12,6 @@ def crawl():
                      user="root",         # your username
                      #passwd="xpx",  # your password
                      db="xudatabase")        # name of the data base
-
 	cur = db.cursor()
 
 	dailyMax = 1000

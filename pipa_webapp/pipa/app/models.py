@@ -104,7 +104,17 @@ class RecommendArticle(db.Model):
     score_8 = db.Column(db.Float)
     score_9 = db.Column(db.Float)
     score_10 = db.Column(db.Float)
-
+    title_1 = db.Column(db.String(200))
+    title_2 = db.Column(db.String(200))
+    title_3 = db.Column(db.String(200))
+    title_4 = db.Column(db.String(200))
+    title_5 = db.Column(db.String(200))
+    title_6 = db.Column(db.String(200))
+    title_7 = db.Column(db.String(200))
+    title_8 = db.Column(db.String(200))
+    title_9 = db.Column(db.String(200))
+    title_10 = db.Column(db.String(200))
+    
     def __repr__(self):
         return '<RecommendArticle: {}>'.format(self.id)
 
