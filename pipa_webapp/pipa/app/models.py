@@ -78,11 +78,11 @@ class RecommendArticle(db.Model):
     Create a recommend_articles table
     """
 
-    __tablename__ = 'user_articles'
+    __tablename__ = 'recommend_articles'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    source_pmid = db.Column(db.Integer, db.ForeignKey('user_articles.pmid'))
+    source_pmid = db.Column(db.Integer)
     entry_date = db.Column(db.DateTime(timezone=True))
     pmid_1 = db.Column(db.Integer)
     pmid_2 = db.Column(db.Integer)

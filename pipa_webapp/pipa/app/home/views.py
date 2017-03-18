@@ -1,9 +1,11 @@
 # app/home/views.py
 
 from flask import render_template
-from flask_login import login_required
+from flask_login import current_user, login_required
 
 from . import home
+from .. import db
+from ..models import RecommendArticle
 
 @home.route('/')
 def homepage():
@@ -19,8 +21,9 @@ def dashboard():
     Render the dashboard template on the /dashboard route
     """
 
-    recommendarticles = 
+    recommendarticles = RecommendArticle.query.filter_by(user_id = current_user.id)
 
     return render_template('home/dashboard.html', 
     						recommendarticles=recommendarticles, 
     						title="Articles you may like")
+
