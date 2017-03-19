@@ -15,10 +15,10 @@ Error: deactivate must be sourced. Run 'source deactivate'
 instead of 'deactivate'.
 
 (my-venv) Yanchengs-MacBook-Pro:~ yliu$ source deactivate
-(my-venv) Yanchengs-MacBook-Pro:~ yliu$ cd dream-team/
-(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ export FLASK_CONFIG=development
-(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ export FLASK_APP=run.py
-(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ flask run
+(my-venv) Yanchengs-MacBook-Pro:~ yliu$ cd GitHub/PIPA
 
 # you CANNOT close the app server terminal
 
+(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ export FLASK_CONFIG=development
+(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ export FLASK_APP=run.py
+(my-venv) Yanchengs-MacBook-Pro:dream-team yliu$ flask run

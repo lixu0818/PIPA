@@ -50,8 +50,8 @@ def login():
             # log user in
             login_user(user)
 
-            # redirect to the dashboard page after login
-            return redirect(url_for('home.dashboard'))
+            # redirect to the recommendarticles page after login
+            return redirect(url_for('home.recommendarticles'))
 
         # when login details are incorrect
         else:
@@ -68,7 +68,7 @@ def logout():
     Log an user out through the logout link
     """
     logout_user()
-    flash('You have successfully been logged out.')
+    flash('You have been successfully logged out.')
 
     # redirect to the login page
     return redirect(url_for('auth.login'))

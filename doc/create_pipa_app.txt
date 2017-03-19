@@ -1,3 +1,5 @@
+# start from this doc
+
 1. install flask
 2. start up a dev env
 3. set up a db in mysql
