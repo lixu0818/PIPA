@@ -1,7 +1,6 @@
 import pandas as pd
 import time
 import datetime
-import redis
 from flask import current_app
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
