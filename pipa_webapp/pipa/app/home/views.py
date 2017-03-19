@@ -58,7 +58,7 @@ def recommendarticles():
     unique_articles = []
     for article in sorted_articles:
         if (len(unique_articles) == 0 or (article[0] != unique_articles[-1][0])):
-            if (article[2] > score_threshold and article[0] not in userarticle_pmids):
+            if (article[2] > score_threshold and article[0] < 100):
                 unique_articles.append(article)
     unique_articles = sorted(unique_articles, key=operator.itemgetter(3), reverse=True)
 
