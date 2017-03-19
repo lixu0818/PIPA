@@ -8,7 +8,7 @@ $ pip install -r requirements.txt
 # 2. In the Web tab on your dashboard, create a new web app, use manual configuration, choose python2.7, set virtualenv to my-pipa
 
 # 3. init a mysql db in the Database tab: 
-Database host address:pipa.mysql.pythonanywhere-services.com
+Database host address: pipa.mysql.pythonanywhere-services.com
 username: pipa
 pass: piparoot
 dabase name: pipa$pipa_db
