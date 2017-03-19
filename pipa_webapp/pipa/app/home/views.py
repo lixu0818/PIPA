@@ -28,7 +28,7 @@ def recommendarticles():
     userarticles = UserArticle.query.filter_by(user_id = current_user.id)
     userarticle_pmids = []
     for userarticle in userarticles:
-        userarticle_pmids.append(userarticle.pmid)
+        userarticle_pmids.append(int(userarticle.pmid))
     userarticle_pmids = list(set(userarticle_pmids))    
         
     dt = datetime.now()
