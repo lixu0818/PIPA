@@ -62,8 +62,8 @@ p.copyright {
 
 .intro-divider {
     width: 400px;
-    border-top: 1px solid #f8f8f8;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-top: 3px solid #f8f8f8;
+    border-bottom: 3px solid rgba(0,0,0,0.2);
 }
 
 .intro-header {
@@ -71,7 +71,7 @@ p.copyright {
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../img/intro-bg.jpg) no-repeat center center;
+    background: url(../img/bg.jpg) no-repeat center center;
     background-size: cover;
     height: 100%;
 }
@@ -84,12 +84,20 @@ p.copyright {
 
 .intro-message > h1 {
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-    font-size: 5em;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    font-size: 7em;
+}
+
+.intro-message > h2 {
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    font-size: 1em;
+    color: #161616;
 }
 
 .intro-message > h3 {
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+
 }
 
 .lead {
