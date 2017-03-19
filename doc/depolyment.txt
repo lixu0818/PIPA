@@ -1,0 +1,20 @@
+# 1. Open a bash console after log into pythonanywhere.com, git clone your repo, make a virtual env, and install required packages
+
+$ git clone https://github.com/lixu0818/PIPA.git
+$ mkvirtualenv my-pipa
+$ cd PIPA/
+$ pip install -r requirements.txt
+
+# 2. In the Web tab on your dashboard, create a new web app, use manual configuration, choose python2.7, set virtualenv to my-pipa
+
+# 3. init a mysql db in the Database tab: 
+Database host address:pipa.mysql.pythonanywhere-services.com
+username: pipa
+pass: piparoot
+dabase name: pipa$pipa_db
+
+# 4. populate the database by running migrate in the console:
+
+
+
+export SQLALCHEMY_DATABASE_URI='mysql://pipa:piparoot@pipa.mysql.pythonanywhere-services.com/pipa$pipa_db'
