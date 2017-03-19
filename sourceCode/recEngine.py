@@ -69,9 +69,7 @@ def train(userpool, dailypool, userId, cur, db):
             print similar_items[i][2]
             titleEnd = similar_items[i][2].index('        Abstract:')
             print i
-            similar_items[i][2]= similar_items[i][2][:titleEnd]
-            
-            
+            similar_items[i][2] = similar_items[i][2][:titleEnd].replace('\"', ' ')
 
         query = 'insert into recommend_articles (\
         entry_date, user_id, source_pmid,\

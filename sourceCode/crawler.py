@@ -10,19 +10,19 @@ from recEngine import recommend
 def crawl(db):        
     cur = db.cursor()
 
-    dailyMax = 1000
+    dailyMax = 100
     batchNum = 20
     sleeptimeforPubmed =5
-    backstep =18
+    backstep =8
 
     cur.execute('select pmid from articles order by pmid desc')
     startingPMID = cur.fetchall()[backstep][0]
 
 	################
-	#for testing
-    # startingPMID=28315600
+	# for testing
+    startingPMID=28304660
 
-    cur.execute('truncate articles')
+    cur.execute('truncate table articles')
     for i in range (startingPMID, startingPMID+dailyMax, batchNum):
         PMIDs = ""
 
