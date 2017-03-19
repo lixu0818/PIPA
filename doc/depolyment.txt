@@ -22,7 +22,7 @@ dabase name: pipa$pipa_db
 # 4. populate the database by running migrate in the console:
 $ export FLASK_CONFIG=production
 $ export FLASK_APP=run.py
-$ export SQLALCHEMY_DATABASE_URI='mysql://your-username:your-password@your-host-address/your-database-name'
+$ export SQLALCHEMY_DATABASE_URI='mysql://pipa:piparoot@pipa.mysql.pythonanywhere-services.com/pipa$pipa_db'
 $ flask db init
 
 $ flask db migrate
