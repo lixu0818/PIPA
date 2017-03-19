@@ -12,15 +12,15 @@ def crawl(db):
 
     dailyMax = 100
     batchNum = 20
-    sleeptimeforPubmed =5
-    backstep =8
+    sleeptimeforPubmed = 5
+    backstep = 8
 
     cur.execute('select pmid from articles order by pmid desc')
     startingPMID = cur.fetchall()[backstep][0]
 
 	################
 	# for testing
-    startingPMID=28304660
+    startingPMID=28315600
 
     cur.execute('truncate table articles')
     for i in range (startingPMID, startingPMID+dailyMax, batchNum):
@@ -31,7 +31,7 @@ def crawl(db):
 
         url = "https://www.ncbi.nlm.nih.gov/pubmed/"+ PMIDs +"?report=medline&format=text" 
 
-        #time.sleep(sleeptimeforPubmed)
+        time.sleep(sleeptimeforPubmed)
         http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED',ca_certs=certifi.where())
         r = http.request('GET', url)
         soup = BeautifulSoup(r.data, "lxml")

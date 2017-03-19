@@ -5,7 +5,9 @@ $ mkvirtualenv my-pipa
 $ cd PIPA/
 $ pip install -r requirements.txt
 
+
 # 2. In the Web tab on your dashboard, create a new web app, use manual configuration, choose python2.7, set virtualenv to my-pipa
+
 
 # 3. init a mysql db in the Database tab: 
 Database host address: pipa.mysql.pythonanywhere-services.com
@@ -13,8 +15,41 @@ username: pipa
 pass: piparoot
 dabase name: pipa$pipa_db
 
+# to get into the mysql terminal from the bash terminal: 
+(my-pipa) 19:05 ~/PIPA/pipa_webapp/pipa (master)$ mysql -u pipa -h pipa.mysql.pythonanywhere-services.com -p
+
+
 # 4. populate the database by running migrate in the console:
+$ export FLASK_CONFIG=production
+$ export FLASK_APP=run.py
+$ export SQLALCHEMY_DATABASE_URI='mysql://your-username:your-password@your-host-address/your-database-name'
+$ flask db init
 
+$ flask db migrate
+(if this step fails because of cannot find db socket, get the instance folder and set SQLALCHEMY_DATABASE_URI in instance/config.py)
 
+$ flask db upgrade
 
-export SQLALCHEMY_DATABASE_URI='mysql://pipa:piparoot@pipa.mysql.pythonanywhere-services.com/pipa$pipa_db'
+# 5. In the Code section on Dashboard/Web, set the source code folder like so:
+Source code: /home/pipa/PIPA/pipa_webapp/pipa
+Working directory: /home/pipa/
+WSGI configuration file:/var/www/pipa_pythonanywhere_com_wsgi.py
+Python version:2.7
+
+# 6. edit the WSGI configuration file like so:
+<codeblock>
+import os
+import sys
+
+path = '/home/pipa/PIPA/pipa_webapp/pipa'
+if path not in sys.path:
+    sys.path.append(path)
+
+os.environ['FLASK_CONFIG'] = 'production'
+os.environ['SECRET_KEY'] = 'p9Bv<3Eid9%$i01'
+os.environ['SQLALCHEMY_DATABASE_URI'] = 'mysql://pipa:piparoot@pipa.mysql.pythonanywhere-services.com/pipa$pipa_db'
+
+from run import app as application
+</codeblcok>
+
+# 7. Reload the app then you are good to go

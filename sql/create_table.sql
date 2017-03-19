@@ -1,4 +1,4 @@
-create table articles (id int not null auto_increment primary key, pmid int, abstract text);
+create table articles (id int not null auto_increment primary key, pmid int, abstract text, extracted datetime);
 
 create table last_pmid 
 	(id int not null auto_increment primary key, 
