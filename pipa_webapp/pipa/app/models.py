@@ -64,7 +64,7 @@ class UserArticle(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     pmid = db.Column(db.Integer)
     title = db.Column(db.String(200))
-    abstract = db.Column(db.String(1000))
+    abstract = db.Column(db.String(10000))
     created = db.Column(db.DateTime(timezone=True), default=func.now())
     lastmodified = db.Column(db.DateTime(timezone=True), onupdate=func.now())  
     deleted = db.Column(db.DateTime(timezone=True))

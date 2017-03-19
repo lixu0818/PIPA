@@ -39,10 +39,10 @@ def add_userarticle():
             # add userarticle to the database
             db.session.add(userarticle)
             db.session.commit()
-            flash('You have successfully added a new userarticle.')
+            flash('You have successfully added a new article.')
         except:
             # in case userarticle id already exists
-            flash('Error: userarticle already exists.')
+            flash('Error: article already exists or text is too long')
 
         # redirect to userarticles page
         return redirect(url_for('user.list_userarticles'))
@@ -68,7 +68,7 @@ def edit_userarticle(id):
         userarticle.abstract = form.abstract.data
         userarticle.user_id = current_user.id
         db.session.commit()
-        flash('You have successfully edited the userarticle.')
+        flash('You have successfully edited the article.')
 
         # redirect to the userarticles page
         return redirect(url_for('user.list_userarticles'))
@@ -89,7 +89,7 @@ def delete_userarticle(id):
     userarticle = UserArticle.query.get_or_404(id)
     db.session.delete(userarticle)
     db.session.commit()
-    flash('You have successfully deleted the userarticle.')
+    flash('You have successfully deleted the article.')
 
     # redirect to the userarticles page
     return redirect(url_for('user.list_userarticles'))
