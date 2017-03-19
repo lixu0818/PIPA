@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 from . import home
 from .. import db
-from ..models import RecommendArticle
+from ..models import RecommendArticle, UserArticle
 
 @home.route('/')
 def homepage():
