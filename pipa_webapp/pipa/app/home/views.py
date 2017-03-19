@@ -24,12 +24,19 @@ def recommendarticles():
     """
 
     rows = RecommendArticle.query.filter_by(user_id = current_user.id)
+
+    userarticles = UserArticle.query.filter_by(user_id = current_user.id)
+    userarticle_pmids = []
+    for userarticle in userarticles:
+        userarticle_pmids.append(userarticle.pmid)
+    userarticle_pmids = list(set(userarticle_pmids))    
+        
     dt = datetime.now()
     dt = dt.replace(hour=0, minute=0, second=0, microsecond=0)
     # sort out 10 articles with the highest scores and with scores above a threshold value   
     all_articles = []
     recommendarticles = []
-    score_threshold = 0.001
+    score_threshold = 0.02
     article_count_limit = 10
     for row in rows:
         if (row.entry_date >= dt - timedelta(days=7)):
@@ -51,7 +58,7 @@ def recommendarticles():
     unique_articles = []
     for article in sorted_articles:
         if (len(unique_articles) == 0 or (article[0] != unique_articles[-1][0])):
-            if (article[2] > score_threshold):
+            if (article[2] > score_threshold and article[0] not in userarticle_pmids):
                 unique_articles.append(article)
     unique_articles = sorted(unique_articles, key=operator.itemgetter(3), reverse=True)
 
