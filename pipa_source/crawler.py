@@ -15,12 +15,12 @@ def crawl(db):
     sleeptimeforPubmed = 5
     backstep = 8
 
-    cur.execute('select pmid from articles order by pmid desc')
-    startingPMID = cur.fetchall()[backstep][0]
+    # cur.execute('select pmid from articles order by pmid desc')
+    # startingPMID = cur.fetchall()[backstep][0]
 
 	################
 	# for testing
-    startingPMID=28315600
+    startingPMID=28315500
 
     cur.execute('truncate table articles')
     for i in range (startingPMID, startingPMID+dailyMax, batchNum):
@@ -40,7 +40,7 @@ def crawl(db):
 
         if allInfo.find('PMID- ')<0:
             print url
-            print 'bad end'        
+            print 'extraction complete'        
             break
 
         while allInfo.find('AB  -')>0:
