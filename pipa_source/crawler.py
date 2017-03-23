@@ -7,20 +7,20 @@ import datetime
 import MySQLdb
 from recEngine import recommend
 
-def crawl(db):        
+def crawl(db):
     cur = db.cursor()
 
-    dailyMax = 100
+    dailyMax = 2000
     batchNum = 20
     sleeptimeforPubmed = 5
-    backstep = 8
+    backstep = 20
 
-    # cur.execute('select pmid from articles order by pmid desc')
-    # startingPMID = cur.fetchall()[backstep][0]
+    cur.execute('select pmid from articles order by pmid desc')
+    startingPMID = cur.fetchall()[backstep][0]
 
 	################
 	# for testing
-    startingPMID=28315500
+    # startingPMID=28315500
 
     cur.execute('truncate table articles')
     for i in range (startingPMID, startingPMID+dailyMax, batchNum):
@@ -29,7 +29,7 @@ def crawl(db):
         for j in range (batchNum):
             PMIDs = PMIDs + str(i + j ) +","
 
-        url = "https://www.ncbi.nlm.nih.gov/pubmed/"+ PMIDs +"?report=medline&format=text" 
+        url = "https://www.ncbi.nlm.nih.gov/pubmed/"+ PMIDs +"?report=medline&format=text"
 
         time.sleep(sleeptimeforPubmed)
         http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED',ca_certs=certifi.where())
@@ -40,7 +40,7 @@ def crawl(db):
 
         if allInfo.find('PMID- ')<0:
             print url
-            print 'extraction complete'        
+            print 'extraction complete'
             break
 
         while allInfo.find('AB  -')>0:
@@ -56,9 +56,12 @@ def crawl(db):
             else:
                 tiIndexEnd =   allInfo.index('AB  -', tiIndexStart)-1
             ti = allInfo[tiIndexStart:tiIndexEnd]
-            
+
             abIndexStart = allInfo.index('AB  -')+6
-            abIndexEnd =   allInfo.index('FAU -', abIndexStart)-1
+            try:
+                abIndexEnd =   allInfo.index('FAU -', abIndexStart)-1
+            except:
+                abIndexEnd = abIndexStart + 1000
             ab = ti+"        Abstract:"+allInfo[abIndexStart:abIndexEnd]
 
             query = "insert into articles (pmid, abstract) values ("+ PMID +", '"+ ab + "')"
@@ -77,16 +80,16 @@ def crawl(db):
 
             allInfo = allInfo[abIndexEnd:]
 
-        now = datetime.datetime.now()       
+        now = datetime.datetime.now()
         query = 'insert into last_pmid (record_date, pmid) values ("%s", %d)'%(now, endingPMID)
         cur.execute(query)
         db.commit()
 
 if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost",    # your host, usually localhost
-                         user="root",         # your username
-                         passwd="root",  # your password
-                         db="pipa_db")        # name of the data base
+    db = MySQLdb.connect(host="pipa.mysql.pythonanywhere-services.com",    # your host, usually localhost
+                         user="pipa",         # your username
+                         passwd="piparoot",  # your password
+                         db="pipa$pipa_db")        # name of the data base
     crawl(db)
     recommend(db)
-    db.close() 
+    db.close()

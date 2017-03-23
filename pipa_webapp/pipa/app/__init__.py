@@ -20,7 +20,9 @@ def create_app(config_name):
         app = Flask(__name__)
         app.config.update(
             SECRET_KEY=os.getenv('SECRET_KEY'),
-            SQLALCHEMY_DATABASE_URI=os.getenv('SQLALCHEMY_DATABASE_URI')
+            SQLALCHEMY_DATABASE_URI=os.getenv('SQLALCHEMY_DATABASE_URI'),
+            SQLALCHEMY_POOL_RECYCLE=499,
+            SQLALCHEMY_POOL_TIMEOUT=20
         )
     else:
         app = Flask(__name__, instance_relative_config=True)

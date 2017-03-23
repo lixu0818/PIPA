@@ -22,10 +22,10 @@ def import_user_articles(userId, cur):
 def train(userpool, dailypool, userId, cur, db):
     ds = pd.concat([userpool, dailypool])
     ds.reset_index(drop=True, inplace=True)
-    
+
     #clean up not ASCII chars
     ds['abstract'] = ds["abstract"].apply(lambda x: ''.join([" " if ord(i) < 32 or ord(i) > 126 else i for i in x]))
-    
+
     tf = TfidfVectorizer(analyzer='word',
                              ngram_range=(1, 3),
                              min_df=0,
@@ -35,11 +35,11 @@ def train(userpool, dailypool, userId, cur, db):
     # print userpool.shape
     cosine_similarities = linear_kernel(tfidf_matrix[:userpool.shape[0]], tfidf_matrix[userpool.shape[0]:])
     similarities = pd.DataFrame(cosine_similarities)
-    
+
     prediction_matrix = pd.DataFrame(data=userpool.PMID, columns=['PMID'], index=userpool.index)
     similarity_scores = prediction_matrix.copy()
     abstract_matrix = prediction_matrix.copy()
-    
+
     top_n = 12
     if (ds.shape[0] < top_n):
         top_n = ds.shape[0] + 1
@@ -51,24 +51,24 @@ def train(userpool, dailypool, userId, cur, db):
         abstract_matrix[col_name] = None
 
     now = datetime.datetime.now()
-    
+
     for idx in range(userpool.shape[0]):
         # print "idx: %s" % idx
         similar_indices = cosine_similarities[idx].argsort()[:-top_n:-1]
         # print "similar indices: %s" % similar_indices
         similar_items = [[cosine_similarities[idx][i], ds['PMID'][i], ds['abstract'][i]]for i in similar_indices]
         #print "similar items: \n %s" % similar_items
-        for i in range(0,top_n-2): 
+        for i in range(0,top_n-2):
 
-            prediction_matrix.ix[idx, i] = similar_items[i][1] # insert into db directly 
+            prediction_matrix.ix[idx, i] = similar_items[i][1] # insert into db directly
             similarity_scores.ix[idx, i] = similar_items[i][0] # insert into a db table with date
-            
+
             # print similar_items[i][0]
             # print similar_items[i][1]
             # print similar_items[i][2]
             titleEnd = similar_items[i][2].index('        Abstract:')
             # print i
-            similar_items[i][2] = similar_items[i][2][:titleEnd].replace('\"', ' ')
+            similar_items[i][2] = similar_items[i][2][:titleEnd][:200].replace('\"', ' ')
 
         query = 'insert into recommend_articles (\
         entry_date, user_id, source_pmid,\
@@ -105,15 +105,15 @@ def recommend(db):
     start = time.time()
     cur = db.cursor()
     dailypool = import_data_articles('articles', cur)
-    
+
     cur.execute('select user_id from user_articles')
     userIdlist = list(set(cur.fetchall()))
-    
+
     for id in userIdlist:
         userpool = import_user_articles(id[0], cur)
         # print '##################'
         train(userpool, dailypool, id[0], cur, db)
-    
+
     print("Engine trained in %s seconds." % (time.time() - start))
 
 

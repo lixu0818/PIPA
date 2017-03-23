@@ -1,6 +1,6 @@
 # app/user/views.py
 
-from flask import abort, flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
 from . import user
@@ -16,7 +16,13 @@ def list_userarticles():
     """
     List articles entered by a user
     """
-    userarticles = UserArticle.query.filter_by(user_id = current_user.id )
+    try:
+        userarticles = UserArticle.query.filter_by(user_id = current_user.id )
+        db.session.commit()
+    except:
+        db.session.rollback()
+        userarticles = UserArticle.query.filter_by(user_id = current_user.id )
+        db.session.commit()
 
     return render_template('user/userarticles/userarticles.html',
                            userarticles=userarticles, title="User Articles")
@@ -60,7 +66,10 @@ def edit_userarticle(id):
     """
     add_userarticle = False
 
-    userarticle = UserArticle.query.get_or_404(id)
+    try:
+        userarticle = UserArticle.query.get_or_404(id)
+    except:
+        userarticle = UserArticle.query.get_or_404(id)
     form = UserArticleForm(obj=userarticle)
     if form.validate_on_submit():
         userarticle.pmid = form.pmid.data
@@ -86,7 +95,10 @@ def delete_userarticle(id):
     """
     Delete a userarticle from the database
     """
-    userarticle = UserArticle.query.get_or_404(id)
+    try:
+        userarticle = UserArticle.query.get_or_404(id)
+    except:
+        userarticle = UserArticle.query.get_or_404(id)
     db.session.delete(userarticle)
     db.session.commit()
     flash('You have successfully deleted the article.')

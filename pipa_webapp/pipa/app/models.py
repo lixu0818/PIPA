@@ -51,7 +51,13 @@ class User(UserMixin, db.Model):
 # Set up user_loader
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    try:
+        result = User.query.get(int(user_id))
+        db.session.commit()
+    except:
+        result = User.query.get(int(user_id))
+        db.session.commit()
+    return result
 
 class UserArticle(db.Model):
     """
@@ -66,7 +72,7 @@ class UserArticle(db.Model):
     title = db.Column(db.String(200))
     abstract = db.Column(db.String(10000))
     created = db.Column(db.DateTime(timezone=True), default=func.now())
-    lastmodified = db.Column(db.DateTime(timezone=True), onupdate=func.now())  
+    lastmodified = db.Column(db.DateTime(timezone=True), onupdate=func.now())
     deleted = db.Column(db.DateTime(timezone=True))
 
     def __repr__(self):
@@ -114,7 +120,7 @@ class RecommendArticle(db.Model):
     title_8 = db.Column(db.String(200))
     title_9 = db.Column(db.String(200))
     title_10 = db.Column(db.String(200))
-    
+
     def __repr__(self):
         return '<RecommendArticle: {}>'.format(self.id)
 
