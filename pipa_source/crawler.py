@@ -1,6 +1,5 @@
 import urllib3
 from bs4 import BeautifulSoup
-import requests
 import certifi
 import time
 import datetime
@@ -8,6 +7,12 @@ import MySQLdb
 from recEngine import recommend
 
 def crawl(db):
+    """
+    Extract articles from PubMed, parse the data, and then load into MySQL db.
+
+    :type db: MySQL db connector
+    :rtype: void
+    """
     cur = db.cursor()
 
     dailyMax = 2000
@@ -43,19 +48,24 @@ def crawl(db):
             print 'extraction complete'
             break
 
-        while allInfo.find('AB  -')>0:
+        while (allInfo.find('AB  -')>0 and allInfo.find('TI  -')>0):
             IdIndexStart = allInfo.index('PMID- ')+6
             IdIndexEnd = allInfo.index('\n', IdIndexStart)
             PMID = allInfo[IdIndexStart:IdIndexEnd]
 
-            tiIndexStart = allInfo.index('TI  -')+6
-            if allInfo.find(  'PG  -', tiIndexStart)>0:
-                tiIndexEnd =   allInfo.index('PG  -', tiIndexStart)-1
-            elif allInfo.find('LID -', tiIndexStart)>0:
-                tiIndexEnd =   allInfo.index('LID -', tiIndexStart)-1
-            else:
-                tiIndexEnd =   allInfo.index('AB  -', tiIndexStart)-1
-            ti = allInfo[tiIndexStart:tiIndexEnd]
+            try:
+                tiIndexStart = allInfo.index('TI  -')+6
+
+                if allInfo.find(  'PG  -', tiIndexStart)>0:
+                    tiIndexEnd =   allInfo.index('PG  -', tiIndexStart)-1
+                elif allInfo.find('LID -', tiIndexStart)>0:
+                    tiIndexEnd =   allInfo.index('LID -', tiIndexStart)-1
+                else:
+                    tiIndexEnd =   allInfo.index('AB  -', tiIndexStart)-1
+                ti = allInfo[tiIndexStart:tiIndexEnd]
+
+            except:
+                ti =""
 
             abIndexStart = allInfo.index('AB  -')+6
             try:
@@ -86,10 +96,10 @@ def crawl(db):
         db.commit()
 
 if __name__ == "__main__":
-    db = MySQLdb.connect(host="pipa.mysql.pythonanywhere-services.com",    # your host, usually localhost
-                         user="pipa",         # your username
-                         passwd="piparoot",  # your password
-                         db="pipa$pipa_db")        # name of the data base
+    db = MySQLdb.connect(host="pipa.mysql.pythonanywhere-services.com",
+                         user="pipa",
+                         passwd="piparoot",
+                         db="pipa$pipa_db")
     crawl(db)
     recommend(db)
     db.close()

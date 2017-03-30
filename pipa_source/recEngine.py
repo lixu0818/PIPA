@@ -1,17 +1,31 @@
-import pandas as pd
 import time
 import datetime
-from flask import current_app
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
-import MySQLdb
 
 def import_data_articles(table_name, cur):
-    ds = cur.execute('select pmid, abstract from ' +table_name)
+    """
+    Import article data from a table in MySQL db and load them into a pandas Dataframe.
+
+    :type table_name: str
+    :type cur: db cursor
+    :rtype: pandas DataFrame
+    """
+
+    cur.execute('select pmid, abstract from ' + table_name)
     r = cur.fetchall()
     return pd.DataFrame(list(r),columns=['PMID', 'abstract'])
 
 def import_user_articles(userId, cur):
+    """
+    Import a user's articles given id and load them into a pandas Dataframe.
+
+    :type table_name: str
+    :type cur: db cursor
+    :rtype: pandas DataFrame
+    """
+
     cur.execute('select pmid, title, abstract from user_articles where user_id=%d'% (userId))
     r = cur.fetchall()
     userdata= pd.DataFrame(list(r),columns=['PMID', 'title', 'abstract'])
@@ -20,6 +34,17 @@ def import_user_articles(userId, cur):
     return userpool
 
 def train(userpool, dailypool, userId, cur, db):
+    """
+    Find the top 10 similar articles for each entry in the user's list and write into database
+
+    :type userpool: pandas DataFrame
+    :type dailypool: pandas DataFrame
+    :type userId: int
+    :type cur: db cursor
+    :type db: MySQL db
+    :rtype: void
+    """
+
     ds = pd.concat([userpool, dailypool])
     ds.reset_index(drop=True, inplace=True)
 
@@ -56,9 +81,10 @@ def train(userpool, dailypool, userId, cur, db):
         # print "idx: %s" % idx
         similar_indices = cosine_similarities[idx].argsort()[:-top_n:-1]
         # print "similar indices: %s" % similar_indices
-        similar_items = [[cosine_similarities[idx][i], ds['PMID'][i], ds['abstract'][i]]for i in similar_indices]
-        #print "similar items: \n %s" % similar_items
-        for i in range(0,top_n-2):
+        similar_items = [[cosine_similarities[idx][i], ds['PMID'][i+userpool.shape[0]], ds['abstract'][i+userpool.shape[0]]] for i in similar_indices]
+
+        # print "similar items: \n %s" % similar_items
+        for i in range(0,top_n-1):
 
             prediction_matrix.ix[idx, i] = similar_items[i][1] # insert into db directly
             similarity_scores.ix[idx, i] = similar_items[i][0] # insert into a db table with date
@@ -95,13 +121,19 @@ def train(userpool, dailypool, userId, cur, db):
                                                          similar_items[3][2],similar_items[4][2],similar_items[5][2],\
                                                          similar_items[6][2],similar_items[7][2],similar_items[8][2],\
                                                          similar_items[9][2])
-        # print query
+
         cur.execute(query)
         db.commit()
-    return 1;
-
+    return (similarities, prediction_matrix, similarity_scores);
 
 def recommend(db):
+    """
+    Recommend articles for each user article using logic defined in train().
+
+    :type db: MySQL db connector
+    :rtype: void
+    """
+
     start = time.time()
     cur = db.cursor()
     dailypool = import_data_articles('articles', cur)

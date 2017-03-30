@@ -41,7 +41,7 @@ def recommendarticles():
     # sort out 10 articles with the highest scores and with scores above a threshold value
     all_articles = []
     recommendarticles = []
-    score_threshold = 0.02
+    score_threshold = 0.05
     article_count_limit = 10
     for row in rows:
         if (row.entry_date >= dt - timedelta(days=7)):

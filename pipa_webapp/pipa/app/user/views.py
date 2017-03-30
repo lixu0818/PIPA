@@ -21,8 +21,6 @@ def list_userarticles():
         db.session.commit()
     except:
         db.session.rollback()
-        userarticles = UserArticle.query.filter_by(user_id = current_user.id )
-        db.session.commit()
 
     return render_template('user/userarticles/userarticles.html',
                            userarticles=userarticles, title="User Articles")
