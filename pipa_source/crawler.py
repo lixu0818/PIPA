@@ -15,7 +15,7 @@ def crawl(db):
     """
     cur = db.cursor()
 
-    dailyMax = 2000
+    dailyMax = 3000
     batchNum = 20
     sleeptimeforPubmed = 5
     backstep = 20
