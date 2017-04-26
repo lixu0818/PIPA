@@ -16,6 +16,13 @@ def homepage():
     """
     return render_template('home/index.html', title="Welcome")
 
+@home.route('/howto')
+def howto():
+    """
+    Render the homepage template on the /howto route
+    """
+    return render_template('home/howto.html', title="HowTo")
+
 @home.route('/recommendarticles')
 @login_required
 def recommendarticles():

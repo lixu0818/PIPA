@@ -1,0 +1,51 @@
+<!-- app/templates/home/howto.html -->
+
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <h4>What is our motivation?</h4>
+                    <br>
+                    <p>Scientific researchers spend a lot of time to read literatures coming out in the field. Keeping up with the relevant
+                    papers is very important for designing experiments and writing grant proposals. As the largest collection of biomedical literature,
+                    <a href="https://www.ncbi.nlm.nih.gov/pubmed">PubMed</a>, comprises more than 26 million publications from life science journals and books.
+                    Although hundreds of millions of researchers depend heavily on Pubmed, its search engine remains very basic (mostly key words query). Thus, it is still very
+                    time consuming for the users to filter those important articles that are truly relevant.</p>
+
+                    <br>
+                    <h4>What is PIPA?</h4>
+                    <br>
+                    <p>Here we present PIPA - PubMed Intelligent Personalized Assistant, a web-based literature recommendation system aiming to
+                    automate biomedical literature search of the PubMed database.</p>
+                    <p>Every day, PIPA records reading history of individual user, crawls PubMed for recently published articles and picks the most relevant ones for each user.
+
+                    PIPA is devoted to help to solve the problem of information overload in higher education and biomedical research. </p>
+                    <br>
+                    <h4>How can I can started?</h4>
+                    <br>
+                    <p>Follow the link to see some tutorials or read the user manual. Give a try!</p>
+
+                    <p>To get started, click me: </p><a href="https://youtu.be/4MYrRC-e7ks">Demo</a>
+
+                    <br>
+                    <a href="https://github.com/lixu0818/PIPA/blob/master/doc/UserManual.pdf">User Manual</a>
+                    <br>
+                    <br>
+                    <a href="https://www.youtube.com/watch?v=VlH4dvMrhLM&t=2s">Dev tutorial with back-end details (crawler and recommendation engine)  </a>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
